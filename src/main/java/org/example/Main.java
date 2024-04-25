@@ -41,5 +41,33 @@ public class Main {
     public String decodeBase64(String base64) {
         return new String(Base64.getDecoder().decode(base64));
     }
+
+
+    // crea una función que recorra un array de objetos que continene un objeto de personas. Debe encontrar el tercer objeto cullo nombre empiece por la letra "I", de el extrae el nombre de su perror y lo devuelves
+    // escribe el javadoc
+    /**
+     * Finds the third person whose name starts with the letter "I" in an array of objects containing a person object. Extracts the name of their parent and returns it.
+     *
+     * @param people the array of objects containing a person object
+     * @return the name of the parent of the third person whose name starts with the letter "I"
+     */
+    // Cálculo de la complejidad ciclomática: 4
+    public String findParentOfThirdPersonWhoseNameStartsWithI(Object[] people) {
+        int count = 0;
+        for (Object person : people) {
+            try {
+                Person p = (Person) person;
+                if (p.getName().startsWith("I")) {
+                    count++;
+                    if (count == 3) {
+                        return p.getParent();
+                    }
+                }
+            } catch (ClassCastException e) {
+                System.out.println("El objeto no es una persona.");
+            }
+        }
+        return null;
+    }
 }
 
