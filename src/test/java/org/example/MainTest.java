@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class MainTest {
     @Test
@@ -87,5 +88,55 @@ public class MainTest {
         Main main = new Main();
         String result = main.decodeBase64("");
         assertEquals("", result);
+    }
+
+    @Test
+    public void findParentOfThirdPersonWhoseNameStartsWithI_ShouldReturnParent_WhenThirdPersonNameStartsWithI() {
+        Main main = new Main();
+        Person person1 = new Person("Ian", "John");
+        Person person2 = new Person("Isaac", "David");
+        Person person3 = new Person("Igor", "Michael");
+        Object[] people = {person1, person2, person3};
+
+        String result = main.findParentOfThirdPersonWhoseNameStartsWithI(people);
+
+        assertEquals("Michael", result);
+    }
+
+    @Test
+    public void findParentOfThirdPersonWhoseNameStartsWithI_ShouldReturnNull_WhenLessThanThreePeopleNameStartsWithI() {
+        Main main = new Main();
+        Person person1 = new Person("Ian", "John");
+        Person person2 = new Person("Isaac", "David");
+        Object[] people = {person1, person2};
+
+        String result = main.findParentOfThirdPersonWhoseNameStartsWithI(people);
+
+        assertNull(result);
+    }
+
+    @Test
+    public void findParentOfThirdPersonWhoseNameStartsWithI_ShouldReturnNull_WhenNoPersonNameStartsWithI() {
+        Main main = new Main();
+        Person person1 = new Person("John", "David");
+        Person person2 = new Person("David", "Michael");
+        Object[] people = {person1, person2};
+
+        String result = main.findParentOfThirdPersonWhoseNameStartsWithI(people);
+
+        assertNull(result);
+    }
+
+    @Test
+    public void findParentOfThirdPersonWhoseNameStartsWithI_ShouldIgnoreNonPersonObjects() {
+        Main main = new Main();
+        Person person1 = new Person("Ian", "John");
+        Person person2 = new Person("Isaac", "David");
+        Person person3 = new Person("Igor", "Michael");
+        Object[] people = {person1, "Not a person", person2, person3};
+
+        String result = main.findParentOfThirdPersonWhoseNameStartsWithI(people);
+
+        assertEquals("Michael", result);
     }
 }
